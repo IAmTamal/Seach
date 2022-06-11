@@ -22,11 +22,68 @@ const Homecontainer = () => {
 
 
 
+    const addusertoDB = () => {
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products/addtodolisttodb`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(creds2)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            }
+            )
+            .catch(err => console.log(err));
+
+        // console.log(creds);
+    }
+
+    const searchuserinDB = () => {
+
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/user/getoneuser`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                creds2
+            )
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.sucess === "nosucess") {
+                    console.log("User not found");
+                    addusertoDB();
+                }
+            })
+            .catch(err => console.log(err));
+
+    }
+
+
+    useEffect(() => {
+
+        if (user) {
+            console.log(user);
+            localStorage.setItem("useremail", user.email);
+
+            const useremail = localStorage.getItem("useremail");
+            setcreds(useremail);
+            creds2.email = useremail;
+
+            searchuserinDB();
+        }
+
+    }, [user]);
+
     useEffect(() => {
         // window is accessible here.
         console.log("window.innerHeight", window.innerHeight);
         setwin(window.innerHeight);
     }, []);
+
 
 
 
