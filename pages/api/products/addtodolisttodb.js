@@ -4,7 +4,7 @@ import Users from "../../../models/UserSchema";
 const handler = async (req, res) => {
   console.log(req.body);
 
-  const { email, username, todolist } = req.body;
+  const { email, username } = req.body;
   const newuser = {};
 
   let searcheduser = await Users.findOne({ email: email });
@@ -18,10 +18,6 @@ const handler = async (req, res) => {
       newuser.username = username;
     }
 
-    if (todolist) {
-      newuser.todolist = todolist;
-    }
-
     let u = await Users.findOneAndUpdate({ email: email }, newuser);
 
     return res.status(200).json({ sucess: "sucess" });
@@ -32,10 +28,6 @@ const handler = async (req, res) => {
 
     if (username) {
       newuser.username = username;
-    }
-
-    if (todolist) {
-      newuser.todolist = todolist;
     }
 
     let p = new Users(newuser);

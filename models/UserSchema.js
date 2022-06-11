@@ -6,17 +6,12 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     username: {
       type: String,
     },
-    todolist: [
-      {
-        todotext: {
-          type: String,
-        },
-      },
-    ],
+    todolist: [String],
   },
   { timetamps: true }
 );

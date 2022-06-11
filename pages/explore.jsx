@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 import Navbar from '../components/Navbar'
+import styles from "../styles/Explore.module.css"
 
 const Explore = () => {
     return (
@@ -126,3 +127,29 @@ const Explore = () => {
 }
 
 export default Explore
+
+{/* <div className={`container-fluid ${styles.card_parent}`}>
+
+<div
+    className={styles.hackathon_card}
+    style={{
+        backgroundImage: `linear-gradient(  rgba(0,0,0,0.375) 75%), url('https://d1aettbyeyfilo.cloudfront.net/kunalk/24509869_1638700184z1vjava-logo-1.webp')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+    }}
+
+>
+
+
+    <div className={styles.text_div}>
+        <h4>
+            Data Structures & Algorithms in Java </h4>
+
+        <h3>
+            Get interview-ready with this course that has no prerequisites and is designed to make you an expert in solving easy to hard LeetCode problems with ease.
+        </h3>
+    </div>
+</div>
+
+
+</div> */}

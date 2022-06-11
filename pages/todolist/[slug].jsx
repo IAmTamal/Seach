@@ -13,7 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Todolist = ({ alllist, usermail }) => {
 
 
-    const [list, setlist] = useState({ email: "", todolist: [] });
+    const [list, setlist] = useState({ email: "", note: "" });
     const [listtext, setlisttext] = useState({ todotext: "" });
     const [oldproducts, setoldproducts] = useState([]);
     const [newlist, setnewlist] = useState([]);
@@ -31,9 +31,10 @@ const Todolist = ({ alllist, usermail }) => {
 
         list.email = usermail;
 
-        list.todolist = alllist.todolist.concat(listtext);
+        // list.todolist = alllist.todolist.concat(listtext);
+        list.note = listtext.todotext;
 
-        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products/addtodolisttodb`, {
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products/updatetodo`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -75,6 +76,56 @@ const Todolist = ({ alllist, usermail }) => {
         setlisttext({ ...listtext, [e.target.name]: e.target.value });
 
     };
+
+
+
+
+
+    const removetodo = async (note) => {
+
+
+
+        list.email = usermail;
+
+        list.note = note;
+
+        fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/products/removetodolist`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(list)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            }
+            )
+            .catch(err => console.log(err));
+
+
+
+
+        // setoldproducts([]);
+
+
+
+
+        toast('🌈 Completed !', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            onClose: () => {
+                refreshData();
+                console.log(alllist.todolist);
+
+            }
+        });
+    }
 
 
 
@@ -122,11 +173,12 @@ const Todolist = ({ alllist, usermail }) => {
 
                 {alllist.todolist.map((item, index) => {
                     return (<div className={styles.todo_formparent2} key={index}>
-                        <AiOutlineForm style={{ fontSize: "2rem", color: "#ec3750", marginRight: "0.5rem" }} />
-                        <IoMdCheckmarkCircle style={{ fontSize: "2rem", color: "#ec3750", marginRight: "1rem" }} />
 
 
-                        <p className={`${styles.workform2}`}> {item.todotext}</p>
+                        <IoMdCheckmarkCircle style={{ fontSize: "2rem", color: "#ec3750", marginRight: "1rem" }} onClick={() => { removetodo(item) }} />
+
+
+                        <p className={`${styles.workform2}`}> {item}</p>
                     </div>)
                 })}
 
