@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
 
-module.exports = nextConfig
+  images: {
+    domains: [
+      "i.ibb.co",
+      "lh3.googleusercontent.com",
+      "avatars.githubusercontent.com",
+      "dl.airtable.com",
+      "d1aettbyeyfilo.cloudfront.net",
+    ],
+  },
+};
+
+module.exports = nextConfig;
